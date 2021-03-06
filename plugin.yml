@@ -1,5 +1,5 @@
 name: Fly
-main: Fly\Main
+main: overa\Main
 api: [3.1.75]
 version: 2.0.0
 author: The0v3rD0z
