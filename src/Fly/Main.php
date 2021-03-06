@@ -49,7 +49,7 @@ use pocketmine\level\particle\FlameParticle;
 use pocketmine\math\Vector3;
 
 
-class Fly extends PluginBase implements Listener{
+class Main extends PluginBase implements Listener{
 
     public function onEnable() {
         $this->getLogger()->info("IQ NETWORK Lobby Activited");
