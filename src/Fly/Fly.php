@@ -59,83 +59,44 @@ class Fly extends PluginBase implements Listener{
 
     public function onJoinPlayer(PlayerJoinEvent $event){
 
-        $player = $event->getPlayer();	
-        $name = $event->getPlayer()->getName();
-        $player->getInventory()->clearAll();
-        $player->getArmorInventory()->clearAll();
-     
-        $event->setJoinMessage("§7[§a+§7]§a$name");
-         
-         $player->sendMessage("§7====================");
-         $player->sendMessage(" §l §4IQ§b-§7NetWork");
-         $player->sendMessage("§f Code by 0v3r");
-         $player->sendMessage("§7====================");
-         
-         $player->addTitle("§aBienvenu(e) sur");
-         $player->addSubTitle("§l§4 IQ§b-§7NetWork");
-         
-        $player->setFood("20");
-        $player->setMaxHealth("20");
-        $player->setHealth("20");
-        $player->setGamemode(0);
-        $player->getlevel()->addSound(new AnvilUseSound($player));
-     
-     }
+   $player = $event->getPlayer();	
+   $name = $event->getPlayer()->getName();
 
-     public function onQuitPlayer(PlayerQuitEvent $event){
-        $player = $event->getPlayer();
-        $name = $event->getPlayer()->getName();
-            $event->setQuitMessage("§7[§c-§7]§c$name");
-    
-    
-    }
-    
-    public function onCommand(CommandSender $sender, Command $command, $label, array $args) : bool{
-        if (!$sender->hasPermission("fly.command")) {
-            $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous n'avez pas la permission de faire cette commande");
-            return false;
-        }
-        $sender = $sender;
-        if(isset($args[0])) {
-            $player = $this->getServer()->getPlayer(args[0]);
-            if ($player instanceof Player and $sender->hasPermission("fly.command.others")) {
-                $sender = $player;
-            }
-        }
-        $world = $sender->getLevel()->getFolderName();
-        if (!$this->flyAllowed($world)) {
-            $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous ne pouvez pas Fly dans ce monde");
-            return false;
-        }
-        if (!$sender->isSurvival()) {
-            $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous ne pouvez pas utiliser le fly en creatif");
-            return false;
-        }
-        if (!$sender->getAllowFlight()) {
-            $sender->addTitle(TextFormat::AQUA."Fly", TextFormat::RED."Désactivé", 20, 10, 20); 
-            $sender->setFlying(false);
-            $sender->setAllowFlight(false);
-        }else {
-            $sender->addTitle(TextFormat::AQUA."Fly", TextFormat::GREEN."Activé", 20, 10, 20);
-            $sender->setAllowFlight(true);
-        }
-        return true;
-    }
+   $event->setJoinMessage("§7[§a+§7]§a$name");
+	
+	$player->sendMessage("§7====================");
+	$player->sendMessage(" §l §4IQ§b-§7NetWork");
+	$player->sendMessage("§f Code by 0v3r");
+	$player->sendMessage("§7====================");
+	
+	$player->addTitle("§aBienvenu(e) sur");
+	$player->addSubTitle("§l§4 IQ§b-§7NetWork");
+	
+   $player->setFood("20");
+   $player->setMaxHealth("20");
+   $player->setHealth("20");
+   $player->setGamemode(1);
+   $player->getlevel()->addSound(new AnvilUseSound($player));
 
-    public function flyAllowed($world) : bool{
-        $config = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        $worlds = $config->get("worlds", []);
-        return in_array($world, $worlds);
+}
+	
+public function onQuitPlayer(PlayerQuitEvent $event){
+	$player = $event->getPlayer();
+	$name = $event->getPlayer()->getName();
+        $event->setQuitMessage("§7[§c-§7]§c$name");
+
+
+}
+	
+public function Hunger(PlayerExhaustEvent $event){
+
+        $event->setCancelled(true);
     }
-    public function onChange(EntityLevelChangeEvent $event) {
-        $player = $event->getEntity();
-        if ($player instanceof Player) {
-            $world = $event->getTarget()->getFolderName();
-            if (!$this->flyAllowed($world) and $player->getAllowFlight() and $player->isSurvival()) {
-            $player->addTitle(TextFormat::AQUA."Fly", TextFormat::RED.TextFormat::BOLD."Désactivé", 20, 10, 20);
-            $player->setFlying(false);
-            $player->setAllowedFlight(false);
-            }
-        }        
+	
+	
+public function onFallDamage(EntityDamageEvent $event){
+
+        $event->setCancelled(true);
+
     }
 }
