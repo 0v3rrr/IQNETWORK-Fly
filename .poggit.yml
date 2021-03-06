@@ -1,0 +1,8 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/The0v3rD0z/IQNETWORK-Fly
+build-by-default: true
+branches:
+- main
+projects:
+  IQNETWORK-Fly:
+    path: ""
+...
