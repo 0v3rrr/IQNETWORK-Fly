@@ -1,0 +1,7 @@
+branches:
+- master
+- Poggit
+projects:
+  IQ-NETWORK-Fly:
+    path: ""
+...
