@@ -51,13 +51,14 @@ use pocketmine\math\Vector3;
 
 class Main extends PluginBase implements Listener{
 
-    public function onEnable() {
+    public function onEnable()
+    {
         $this->getLogger()->info("IQ NETWORK Lobby Activited");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->reloadConfig();
     }
 
-    public function onJoinPlayer(PlayerJoinEvent $event){
+    public function onJoinPlayer(PlayerJoinEvent $event)
+    {
 
    $player = $event->getPlayer();	
    $name = $event->getPlayer()->getName();
@@ -80,22 +81,21 @@ class Main extends PluginBase implements Listener{
 
 }
 	
-public function onQuitPlayer(PlayerQuitEvent $event){
+public function onQuitPlayer(PlayerQuitEvent $event)
+       {
 	$player = $event->getPlayer();
 	$name = $event->getPlayer()->getName();
-        $event->setQuitMessage("§7[§c-§7]§c$name");
-
-
+        $event->setQuitMessage("§7[§c-§7]§c " . $name);
 }
 	
-public function Hunger(PlayerExhaustEvent $event){
-
+public function Hunger(PlayerExhaustEvent $event)
+    {
         $event->setCancelled(true);
     }
 	
 	
-public function onFallDamage(EntityDamageEvent $event){
-
+public function onFallDamage(EntityDamageEvent $event)
+    {
         $event->setCancelled(true);
 
     }
